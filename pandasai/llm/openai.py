@@ -42,6 +42,7 @@ class OpenAI(BaseOpenAI):
         "gpt-3.5-turbo-16k",
         "gpt-3.5-turbo-0613",
         "gpt-3.5-turbo-16k-0613",
+        "zephyr-7b-alpha"
     ]
     _supported_completion_models = ["text-davinci-003", "gpt-3.5-turbo-instruct"]
 
@@ -75,6 +76,10 @@ class OpenAI(BaseOpenAI):
         self.openai_proxy = kwargs.get("openai_proxy") or os.getenv("OPENAI_PROXY")
         if self.openai_proxy:
             openai.proxy = {"http": self.openai_proxy, "https": self.openai_proxy}
+
+        self.openai_api_base = kwargs.get("openai_api_base") or os.getenv("OPENAI_API_BASE")
+        if self.openai_api_base:
+            openai.api_base = self.openai_api_base
 
         self._set_params(**kwargs)
 
